@@ -35,16 +35,24 @@ export class HelloIonicPage {
         this.initMap();
     }
 
-    addMarker(location, map) {
+    addMarker(location, map, iconType=0) {
     /** Add the marker at the clicked location, and add the next-available label
         from the array of alphabetical characters.*/
       //iconType:
       //   0: user
       //   1: printer
+      let iconURL = 'http://maps.google.com/mapfiles/'
+      switch(iconType){
+        case 0:  iconURL += 'ms/icons/blue.png';
+                 break;
+        case 1:  iconURL += 'print_icon.gif';
+                 break
+      }
 
       let marker = new google.maps.Marker({
         position: location,
         map: this.map,
+        icon: iconURL,
 
       });
     return marker;
@@ -166,12 +174,12 @@ export class HelloIonicPage {
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
         page_class.map.setCenter(pos);
-        let marker = page_class.addMarker(pos, page_class.map)
+        let marker = page_class.addMarker(pos, page_class.map,0)
         marker.setMap(page_class.map);
       },function() {
           this.handleLocationError(true, infoWindow, this.map.getCenter());
           let pos = new google.maps.LatLng(42.052936, -87.679330);
-          let marker = page_class.addMarker(pos, page_class.map)
+          let marker = page_class.addMarker(pos, page_class.map,0)
           marker.setMap(page_class.map);
         });
     }
@@ -194,14 +202,21 @@ export class HelloIonicPage {
         this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(uploadDiv);
 
         if (navigator.geolocation) {
-          // geoLocalize will center the map and return the center position
+          // geoLocalize will center the map, set the current location marker
           this.geoLocalize(latLng,infoWindow)
           infoWindow.getPosition()
         }
+        var printerList = this.getPrinters();
+        console.log("list: "+printerList)
+        let pLat = 0, pLng = 0;
+        // for(var printer of printerList){
+        //   pLat = printer.location[0]
+        //   pLng = printer.location[1]
+        // }
     }
 
-    getPrinters(){ 
-        fetch('https://purple-print-share.herokuapp.com/printers/active', 
+    getPrinters(){
+        fetch('https://purple-print-share.herokuapp.com/printers/active',
             {headers:
                 {'Access-Control-Allow-Origin': "*"}
             })
@@ -212,5 +227,5 @@ export class HelloIonicPage {
                 console.log(json);
             });
     }
-            
+
 }
