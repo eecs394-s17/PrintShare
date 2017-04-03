@@ -1,9 +1,24 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
-import { ModalContentPage } from './modal-content-page';
+// import { ModalContentPage } from './modal-content-page';
 
 
 declare var google;
+declare var gapi;
+
+
+// The Browser API key obtained from the Google Developers Console.
+var developerKey = 'AIzaSyAuhusFBWy0UEJok2RUlHdkx4NkiGNWO5I';
+
+// The Client ID obtained from the Google Developers Console. Replace with your own Client ID.
+var clientId = "1058426795646-45qr4emutcnfhh9b76lqotqtvq97mrdn.apps.googleusercontent.com"
+
+// Scope to use to access user's dirve.
+var scope = ['https://www.googleapis.com/auth/drive.readonly'];
+
+var pickerApiLoaded = false;
+var oauthToken;
+
 
 @Component({
   selector: 'page-hello-ionic',
@@ -42,6 +57,73 @@ export class HelloIonicPage {
                               'Error: Your browser doesn\'t support geolocation.');
     }
 
+    onAuthApiLoad() {
+      window['gapi'].auth.authorize(
+          {
+            'client_id': clientId,
+            'scope': scope,
+            'immediate': false
+          },
+          authResult => {
+              if (authResult && !authResult.error) {
+                oauthToken = authResult.access_token;
+                // this.createPicker();
+
+                if (pickerApiLoaded && oauthToken) {
+                  var picker = new google.picker.PickerBuilder().
+                      addView(google.picker.ViewId.DOCS).
+                      setOAuthToken(oauthToken).
+                      setDeveloperKey(developerKey).
+                      setCallback(
+                          data =>{
+                              var url = 'nothing';
+                              if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
+                                var doc = data[google.picker.Response.DOCUMENTS][0];
+                                url = doc[google.picker.Document.URL];
+                              }
+                              var message = 'You picked: ' + url;
+                              // document.getElementById('result').innerHTML = message;
+                              console.log(message);
+                          }
+                      ).
+                      build();
+                  picker.setVisible(true);
+                }
+              }
+          });
+    }
+
+    onPickerApiLoad() {
+      pickerApiLoaded = true;
+      // this.createPicker();
+
+      if (pickerApiLoaded && oauthToken) {
+        var picker = new google.picker.PickerBuilder().
+            addView(google.picker.ViewId.DOCS).
+            setOAuthToken(oauthToken).
+            setDeveloperKey(developerKey).
+            setCallback(
+                data =>{
+                    var url = 'nothing';
+                    if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
+                      var doc = data[google.picker.Response.DOCUMENTS][0];
+                      url = doc[google.picker.Document.URL];
+                    }
+                    var message = 'You picked: ' + url;
+                    // document.getElementById('result').innerHTML = message;
+                    console.log(message);
+                }
+            ).
+            build();
+        picker.setVisible(true);
+      }
+    }
+
+    onApiLoad() {
+      gapi.load('auth', {'callback': this.onAuthApiLoad});
+      gapi.load('picker', {'callback': this.onPickerApiLoad});
+    }
+
     createUploadButton(controlDiv, map) {
         // Set CSS for the control border.
         var controlUI = document.createElement('div');
@@ -68,9 +150,13 @@ export class HelloIonicPage {
         controlText.innerHTML = '<span class="drive-helper"></span> <img src="assets/img/drive512.png" id="drive-logo"> Upload';
         controlUI.appendChild(controlText);
 
-        controlUI.addEventListener('click', (event) =>{
-            let modal = this.modalCtrl.create(ModalContentPage);
-            modal.present();
+        // controlUI.addEventListener('click', (event) =>{
+        //     let modal = this.modalCtrl.create(ModalContentPage);
+        //     modal.present();
+        // });
+
+        controlUI.addEventListener('click', () =>{
+            this.onApiLoad();
         });
     };
 
