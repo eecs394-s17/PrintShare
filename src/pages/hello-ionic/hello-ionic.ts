@@ -116,10 +116,17 @@ export class HelloIonicPage {
         this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(uploadDiv);
 
         if (navigator.geolocation) {
-          // geoLocalize will center the map and return the center position
+          // geoLocalize will center the map, set the current location marker
           this.geoLocalize(latLng,infoWindow)
           infoWindow.getPosition()
         }
+        var printerList = this.getPrinters();
+        console.log("list: "+printerList)
+        let pLat = 0, pLng = 0;
+        // for(var printer of printerList){
+        //   pLat = printer.location[0]
+        //   pLng = printer.location[1]
+        // }
     }
 
     getPrinters(){
