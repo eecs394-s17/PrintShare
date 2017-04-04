@@ -205,7 +205,7 @@ export class HelloIonicPage {
           this.geoLocalize(latLng,infoWindow)
           infoWindow.getPosition()
         }
-        this.getPrinterLocations(this, this.map)
+        this.getPrinterLocations(this)
         // var printers = [[42.052000, -87.678000], 
         //                 [42.052000, -87.679370],
         //                 [42.052000, -87.679970],
@@ -226,7 +226,7 @@ export class HelloIonicPage {
         });
     }
 
-    getPrinterLocations(that,gm){
+    getPrinterLocations(that){
         fetch('https://purple-print-share.herokuapp.com/printers/active',
             {headers:
                 {'Access-Control-Allow-Origin': "*"}
@@ -236,7 +236,7 @@ export class HelloIonicPage {
             })
             .then(function(json) {
                 console.log(that)
-              that.placePrinters(json, gm);
+              that.placePrinters(json,that.map);
             })
         
     }
