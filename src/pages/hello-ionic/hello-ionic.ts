@@ -213,16 +213,13 @@ export class HelloIonicPage {
                         [42.055645, -87.679224],
                         [42.053000, -87.678370],
                         [42.050000, -87.676370]]
-        var i = 0;
-        var page_class = this
-        for(var printer of printers){
-          var pLat = printers[i][0]
-          var pLng = printers[i][1]
+        printers.map((printer) => {
+          var pLat = printer[0]; 
+          var pLng = printer[1];
           let pos = new google.maps.LatLng(pLat, pLng);
-          let marker = page_class.addMarker(pos, page_class.map,1)
-          marker.setMap(page_class.map);
-          i++
-        }
+          let marker = this.addMarker(pos, this.map, 1)
+          marker.setMap(this.map);
+        });
     }
 
     getPrinterLocations(){
