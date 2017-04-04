@@ -205,24 +205,28 @@ export class HelloIonicPage {
           this.geoLocalize(latLng,infoWindow)
           infoWindow.getPosition()
         }
-        //var printers = this.getPrinterLocations()
-        var printers = [[42.052000, -87.678000], 
-                        [42.052000, -87.679370],
-                        [42.052000, -87.679970],
-                        [42.052500, -87.679970],
-                        [42.055645, -87.679224],
-                        [42.053000, -87.678370],
-                        [42.050000, -87.676370]]
+        this.getPrinterLocations(this, this.map)
+        // var printers = [[42.052000, -87.678000], 
+        //                 [42.052000, -87.679370],
+        //                 [42.052000, -87.679970],
+        //                 [42.052500, -87.679970],
+        //                 [42.055645, -87.679224],
+        //                 [42.053000, -87.678370],
+        //                 [42.050000, -87.676370]]
+        
+    }
+
+    placePrinters(printers, gm){
         printers.map((printer) => {
-          var pLat = printer[0]; 
-          var pLng = printer[1];
+          var pLat = printer.location[0]; 
+          var pLng = printer.location[1];
           let pos = new google.maps.LatLng(pLat, pLng);
           let marker = this.addMarker(pos, this.map, 1)
           marker.setMap(this.map);
         });
     }
 
-    getPrinterLocations(){
+    getPrinterLocations(that,gm){
         fetch('https://purple-print-share.herokuapp.com/printers/active',
             {headers:
                 {'Access-Control-Allow-Origin': "*"}
@@ -231,13 +235,13 @@ export class HelloIonicPage {
                 return res.json();
             })
             .then(function(json) {
-              //Scale this to a for loop
-                var ans = [json[0].location,json[1].location];
-                console.log(ans);
-                return ans;
+                console.log(that)
+              that.placePrinters(json, gm);
             })
         
     }
+
+
 
 }
 
