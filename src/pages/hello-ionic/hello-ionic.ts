@@ -177,7 +177,7 @@ export class HelloIonicPage {
         let marker = page_class.addMarker(pos, page_class.map,0)
         marker.setMap(page_class.map);
       },function() {
-          this.handleLocationError(true, infoWindow, this.map.getCenter());
+          page_class.handleLocationError(true, infoWindow, page_class.map.getCenter());
           let pos = new google.maps.LatLng(42.052936, -87.679330);
           let marker = page_class.addMarker(pos, page_class.map,0)
           marker.setMap(page_class.map);
