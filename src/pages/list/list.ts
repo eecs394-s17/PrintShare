@@ -14,14 +14,17 @@ export class ListPage {
   items: Array<{title: string, note: string, icon: string}>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
+    this.icons = ['wifi'] 
+    //'wifi', 'beer', 'football', 'basketball', 'paper-plane',
+    //'american-football', 'boat', 'bluetooth', 'build'];
 
     this.items = [];
-    for(let i = 1; i < 11; i++) {
+    var titles = ["HW1.pdf- Dec 1", "Orders", "Payment", "Help", "Sign up to Print"]
+    var dates = ["March 6 2017", "Feb 15 2017", "Jan 31 2017","Dec 1 2016", "Nov 3 2016"]
+    for(let i = 0; i < titles.length; i++) {
       this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
+        title: titles[i],
+        note: dates[i],
         icon: this.icons[Math.floor(Math.random() * this.icons.length)]
       });
     }
