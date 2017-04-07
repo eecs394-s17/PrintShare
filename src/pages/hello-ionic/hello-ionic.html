@@ -17,5 +17,15 @@
       padding: 0;
     }
   </style>
-  <div #map id="map"></div>
+  <div #map id="map">
+  </div>
 </ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <button ion-button (click)="onApiLoad();" 
+            (tap)="onApiLoad();"
+            (press)="onApiLoad();">
+            Upload from Google Drive</button>
+    </ion-toolbar>
+</ion-footer>
