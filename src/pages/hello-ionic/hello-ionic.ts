@@ -1,24 +1,11 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
+import { FilePicker } from '../file-picker/file-picker';
 // import { ModalContentPage } from './modal-content-page';
 
 
 declare var google;
 declare var gapi;
-
-
-// The Browser API key obtained from the Google Developers Console.
-var developerKey = 'AIzaSyAuhusFBWy0UEJok2RUlHdkx4NkiGNWO5I';
-
-// The Client ID obtained from the Google Developers Console. Replace with your own Client ID.
-var clientId = "1058426795646-45qr4emutcnfhh9b76lqotqtvq97mrdn.apps.googleusercontent.com"
-
-// Scope to use to access user's dirve.
-var scope = ['https://www.googleapis.com/auth/drive.readonly'];
-
-var pickerApiLoaded = false;
-var oauthToken;
-
 
 @Component({
   selector: 'page-hello-ionic',
@@ -27,6 +14,7 @@ var oauthToken;
 export class HelloIonicPage {
     @ViewChild('map') mapElement: ElementRef;
     map: any;
+    filePicker = FilePicker;
 
     constructor(public navCtrl: NavController, public modalCtrl: ModalController) {}
 
@@ -64,109 +52,6 @@ export class HelloIonicPage {
                               'Error: Your browser doesn\'t support geolocation.');
     }
 
-    onAuthApiLoad() {
-      window['gapi'].auth.authorize(
-          {
-            'client_id': clientId,
-            'scope': scope,
-            'immediate': false
-          },
-          authResult => {
-              if (authResult && !authResult.error) {
-                oauthToken = authResult.access_token;
-                // this.createPicker();
-
-                if (pickerApiLoaded && oauthToken) {
-                  var picker = new google.picker.PickerBuilder().
-                      addView(google.picker.ViewId.DOCS).
-                      setOAuthToken(oauthToken).
-                      setDeveloperKey(developerKey).
-                      setCallback(
-                          data =>{
-                              var url = 'nothing';
-                              if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
-                                var doc = data[google.picker.Response.DOCUMENTS][0];
-                                url = doc[google.picker.Document.URL];
-                              }
-                              var message = 'You picked: ' + url;
-                              // document.getElementById('result').innerHTML = message;
-                              console.log(message);
-                          }
-                      ).
-                      build();
-                  picker.setVisible(true);
-                }
-              }
-          });
-    }
-
-    onPickerApiLoad() {
-      pickerApiLoaded = true;
-      // this.createPicker();
-
-      if (pickerApiLoaded && oauthToken) {
-        var picker = new google.picker.PickerBuilder().
-            addView(google.picker.ViewId.DOCS).
-            setOAuthToken(oauthToken).
-            setDeveloperKey(developerKey).
-            setCallback(
-                data =>{
-                    var url = 'nothing';
-                    if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
-                      var doc = data[google.picker.Response.DOCUMENTS][0];
-                      url = doc[google.picker.Document.URL];
-                    }
-                    var message = 'You picked: ' + url;
-                    // document.getElementById('result').innerHTML = message;
-                    console.log(message);
-                }
-            ).
-            build();
-        picker.setVisible(true);
-      }
-    }
-
-    onApiLoad() {
-      gapi.load('auth', {'callback': this.onAuthApiLoad});
-      gapi.load('picker', {'callback': this.onPickerApiLoad});
-    }
-
-    createUploadButton(controlDiv, map) {
-        // Set CSS for the control border.
-        var controlUI = document.createElement('div');
-        controlUI.style.backgroundColor = '#fff';
-        controlUI.style.border = '2px solid #fff';
-        controlUI.style.borderRadius = '3px';
-        controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
-        controlUI.style.cursor = 'pointer';
-        controlUI.style.marginBottom = '22px';
-        controlUI.style.textAlign = 'center';
-        controlUI.style.width = '100px';
-        controlUI.style.position = 'relative';
-        controlUI.title = 'Click to upload document';
-        controlDiv.appendChild(controlUI);
-
-        // Set CSS for the control interior.
-        var controlText = document.createElement('div');
-        controlText.style.color = 'rgb(25,25,25)';
-        controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-        controlText.style.fontSize = '16px';
-        controlText.style.lineHeight = '38px';
-        controlText.style.paddingLeft = '5px';
-        controlText.style.paddingRight = '5px';
-        controlText.innerHTML = '<span class="drive-helper"></span> <img src="assets/img/drive512.png" id="drive-logo"> Upload';
-        controlUI.appendChild(controlText);
-
-        // controlUI.addEventListener('click', (event) =>{
-        //     let modal = this.modalCtrl.create(ModalContentPage);
-        //     modal.present();
-        // });
-
-        controlUI.addEventListener('click', () =>{
-            this.onApiLoad();
-        });
-    };
-
     geoLocalize(latLng, infoWindow){
       //avoid directing *this* pointer to navigator.geolocation
       var page_class = this
@@ -197,7 +82,6 @@ export class HelloIonicPage {
         this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
         var uploadDiv = document.createElement('div');
-        this.createUploadButton(uploadDiv, this.map);
         this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(uploadDiv);
 
         if (navigator.geolocation) {
