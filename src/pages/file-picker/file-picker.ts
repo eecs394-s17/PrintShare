@@ -6,18 +6,18 @@ import { HelloIonicPage } from '../hello-ionic/hello-ionic';
 })
 export class FilePicker {
     homePage = HelloIonicPage;
-    items = [
-        {
-            filename: 'test',
-            create_date: '01/02/03',
-            author_name: 'Tester Tester',
-            size: 1211
-        },
-        {
-            filename: 'test 2',
-            create_date: '01/02/03',
-            author_name: 'Tester Tester',
-            size: 1211
-        }
-    ];
+    items =[];
+
+    ionViewDidLoad(){
+        this.fetchDocs(this);
+    }
+    fetchDocs(that) {
+        const config = { headers: {'Access-Control-Allow-Origin': "*"} }
+
+        return fetch('https://purple-print-share.herokuapp.com/docs', config)
+            .then(res => res.json())
+            .then(docs =>{
+              that.items = docs;
+            })
+    }
 }
