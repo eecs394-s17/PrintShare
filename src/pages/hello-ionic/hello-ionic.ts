@@ -28,11 +28,14 @@ export class HelloIonicPage {
       //iconType:
       //   0: user
       //   1: printer
-      let iconURL = 'http://maps.google.com/mapfiles/'
+      // hosting on a public drive account
+      let iconURL = 'http://drive.google.com/'
+
+
       switch(iconType){
-        case 0:  iconURL += 'ms/icons/blue.png';
+        case 0:  iconURL += 'uc?export=view&id=0B2ckpSl7qTdFMHFvSkVLUU5lS28';
                  break;
-        case 1:  iconURL += 'print_icon.gif';
+        case 1:  iconURL += 'uc?export=view&id=0B2ckpSl7qTdFREprbFJteUJWaUU';
                  break
       }
 
@@ -55,16 +58,19 @@ export class HelloIonicPage {
     geoLocalize(latLng, infoWindow){
       //avoid directing *this* pointer to navigator.geolocation
       var page_class = this
-      navigator.geolocation.getCurrentPosition(function(position) {
+      return navigator.geolocation.getCurrentPosition(function(position) {
         var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
         page_class.map.setCenter(pos);
         let marker = page_class.addMarker(pos, page_class.map,0)
         marker.setMap(page_class.map);
+        // return true
+        // setTimeout(page_class.geoLocalize, 5000);
       },function() {
           page_class.handleLocationError(true, infoWindow, page_class.map.getCenter());
           let pos = new google.maps.LatLng(42.052936, -87.679330);
           let marker = page_class.addMarker(pos, page_class.map,0)
           marker.setMap(page_class.map);
+          // return false
         });
     }
 
@@ -86,23 +92,23 @@ export class HelloIonicPage {
 
         if (navigator.geolocation) {
           // geoLocalize will center the map, set the current location marker
-          this.geoLocalize(latLng,infoWindow)
-          infoWindow.getPosition()
+        this.geoLocalize(latLng,infoWindow)
+        infoWindow.getPosition()
         }
         this.getPrinterLocations(this)
-        // var printers = [[42.052000, -87.678000], 
+        // var printers = [[42.052000, -87.678000],
         //                 [42.052000, -87.679370],
         //                 [42.052000, -87.679970],
         //                 [42.052500, -87.679970],
         //                 [42.055645, -87.679224],
         //                 [42.053000, -87.678370],
         //                 [42.050000, -87.676370]]
-        
+
     }
 
     placePrinters(printers, gm){
         printers.map((printer) => {
-          var pLat = printer.location[0]; 
+          var pLat = printer.location[0];
           var pLng = printer.location[1];
           let pos = new google.maps.LatLng(pLat, pLng);
           let marker = this.addMarker(pos, this.map, 1)
@@ -122,11 +128,9 @@ export class HelloIonicPage {
                 console.log(that)
               that.placePrinters(json,that.map);
             })
-        
+
     }
 
 
 
 }
-
-
