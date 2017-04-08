@@ -1,0 +1,14 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Your Files</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <button ion-item *ngFor="let item of items" [navPush]="homePage">
+            <h1>{{item.filename}}</h1>
+            <h2>{{item.author_name}} - {{item.last_updated}} </h2>
+        </button>
+    </ion-list>
+</ion-content>
