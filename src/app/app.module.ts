@@ -5,6 +5,7 @@ import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
 import { ModalContentPage } from '../pages/hello-ionic/modal-content-page';
+import { FilePicker } from '../pages/file-picker/file-picker';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -15,7 +16,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HelloIonicPage,
     ItemDetailsPage,
     ListPage,
-    ModalContentPage
+    ModalContentPage,
+    FilePicker
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -26,7 +28,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HelloIonicPage,
     ItemDetailsPage,
     ListPage,
-    ModalContentPage
+    ModalContentPage,
+    FilePicker
   ],
   providers: [
     StatusBar,

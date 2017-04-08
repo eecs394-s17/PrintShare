@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
+import { FilePicker } from '../pages/file-picker/file-picker';
 import { ListPage } from '../pages/list/list';
 
 
@@ -33,6 +34,7 @@ export class MyApp {
       { title: 'Orders', component: ListPage },
       { title: 'Payment', component: ListPage },
       { title: 'Help', component: ListPage },
+      { title: 'FilePicker', component: FilePicker },
       { title: 'Sign up to Print', component: ListPage }
     ];
   }
