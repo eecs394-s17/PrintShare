@@ -7,6 +7,8 @@ import { HelloIonicPage } from '../hello-ionic/hello-ionic';
 export class FilePicker {
     homePage = HelloIonicPage;
     items =[];
+    isColor: string = "BW";
+    isDuplex: string = "Simplex";
 
     ionViewDidLoad(){
         this.fetchDocs(this);

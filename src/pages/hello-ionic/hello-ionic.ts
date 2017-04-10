@@ -19,7 +19,7 @@ export class HelloIonicPage {
     filePicker = FilePicker;
 
     constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
-      this.isPrintingEnabled = false;
+      this.isPrintingEnabled = true;
     }
 
     ionViewDidLoad(){
@@ -161,3 +161,5 @@ export class HelloIonicPage {
 
 
 }
+
+

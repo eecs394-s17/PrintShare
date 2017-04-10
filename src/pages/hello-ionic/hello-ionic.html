@@ -17,13 +17,15 @@
       padding: 0;
     }
   </style>
+
   <div #map id="map"></div>
 
   <div class="bottom request-controls">
     <ion-row>
       <ion-col width-20>
         <button ion-button [navPush]="filePicker" block color="light" icon-only>
-          <img src="assets/img/monochrome128.png" id="drive-logo">
+          <!--<img src="assets/img/monochrome128.png" id="drive-logo">-->
+          <ion-icon name="document"></ion-icon>
         </button>
       </ion-col>
       <ion-col width-60>
@@ -37,7 +39,7 @@
         <ion-icon name="time"></ion-icon>
           <ion-item>
             <ion-label>Date</ion-label>
-            <ion-datetime displayFormat="h/mm/a" pickerFormat="h mm A" min="2017-04-10" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55" placeholder="10:10" [(ngModel)]="myDate"></ion-datetime>
+            <ion-datetime displayFormat="h/mm/a" pickerFormat="h mm A" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55" placeholder="Now" [(ngModel)]="myDate"></ion-datetime>
           </ion-item>
         </button>
       </ion-col>
@@ -46,12 +48,14 @@
     <ion-row>
       <ion-col>
         <button [hidden]="!isPrintingEnabled" ion-button block color="dark">
-        Print
+        Continue
         </button>
         <button [hidden]="isPrintingEnabled" ion-button block color="disabled" ng-disabled="true" class="disable-ripple">
-        Print
+        Continue
         </button>
       </ion-col>
     </ion-row>
   </div>
+
+
 </ion-content>
