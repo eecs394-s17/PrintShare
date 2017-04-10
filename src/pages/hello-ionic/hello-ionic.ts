@@ -27,11 +27,15 @@ var oauthToken;
 export class HelloIonicPage {
     @ViewChild('map') mapElement: ElementRef;
     map: any;
+    public isPrintingEnabled: boolean;
 
-    constructor(public navCtrl: NavController, public modalCtrl: ModalController) {}
+    constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
+      this.isPrintingEnabled = false;
+    }
 
     ionViewDidLoad(){
         this.initMap();
+        this.initRequestControls();
     }
 
     addMarker(location, map, iconType=0) {
@@ -190,14 +194,15 @@ export class HelloIonicPage {
             center: latLng,
             zoom: 15,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
-            mapTypeControl: false,
-            fullscreenControl: false
+            //mapTypeControl: false,
+            //fullscreenControl: false
+            disableDefaultUI: true
         }
 
         this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
         var uploadDiv = document.createElement('div');
-        this.createUploadButton(uploadDiv, this.map);
+        //this.createUploadButton(uploadDiv, this.map);
         this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(uploadDiv);
 
         if (navigator.geolocation) {
@@ -239,6 +244,26 @@ export class HelloIonicPage {
               that.placePrinters(json,that.map);
             })
         
+    }
+
+    initRequestControls(){
+      // disable ripple
+      var disabledButtons = document.getElementsByClassName("disable-ripple");
+      for (var i = 0; i < disabledButtons.length; i++) {
+        var buttonEffect = <HTMLElement>disabledButtons[i].getElementsByClassName("button-effect")[0];
+        buttonEffect.style.display = "none";
+
+        var button = <HTMLElement>disabledButtons[i];
+        button.onclick = function() {
+          this.classList.remove("activated");
+        }
+        button.addEventListener("mousedown", function(){
+          this.classList.remove("activated");
+          this.innerHTML = "look";
+        });
+
+
+      }
     }
 
 

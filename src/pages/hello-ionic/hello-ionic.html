@@ -18,4 +18,40 @@
     }
   </style>
   <div #map id="map"></div>
+
+  <div class="bottom request-controls">
+    <ion-row>
+      <ion-col width-20>
+        <button ion-button block color="light" icon-only>
+          <img src="assets/img/monochrome128.png" id="drive-logo">
+        </button>
+      </ion-col>
+      <ion-col width-60>
+        <button ion-button block color="light" icon-left>
+        <ion-icon name="pin"></ion-icon>
+        2300 Sheridan Rd.
+        </button>
+      </ion-col>
+      <ion-col width-20>
+        <button ion-button block color="light" icon-only>
+        <ion-icon name="time"></ion-icon>
+          <ion-item>
+            <ion-label>Date</ion-label>
+            <ion-datetime displayFormat="h/mm/a" pickerFormat="h mm A" min="2017-04-10" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55" placeholder="10:10" [(ngModel)]="myDate"></ion-datetime>
+          </ion-item>
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <button [hidden]="!isPrintingEnabled" ion-button block color="dark">
+        Print
+        </button>
+        <button [hidden]="isPrintingEnabled" ion-button block color="disabled" ng-disabled="true" class="disable-ripple">
+        Print
+        </button>
+      </ion-col>
+    </ion-row>
+  </div>
 </ion-content>
