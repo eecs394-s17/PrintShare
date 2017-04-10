@@ -1,11 +1,12 @@
 const Hapi = require('hapi');
 const server = new Hapi.Server();
 const printers = require('./printer-data.js');
+const docs = require('./docs-data.js');
 const corsHeaders = require('hapi-cors-headers');
 
 server.connection({
   host: '0.0.0.0',
-  port: +process.env.PORT,
+  port: +process.env.PORT || 8080,
 });
 
 server.route({
@@ -33,6 +34,14 @@ server.route({
     return reply(printers.filter(function(printer) {
       return printer.id === parseInt(request.params.id);
     }));
+  }
+});
+
+server.route({
+  method: 'GET',
+  path: '/docs',
+  handler: function(request, reply) {
+    return reply(docs);
   }
 });
 
