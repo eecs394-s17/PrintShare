@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { FilePicker } from '../file-picker/file-picker';
 // import { ModalContentPage } from './modal-content-page';
+import 'whatwg-fetch';
 
 
 declare var google;
@@ -161,5 +162,3 @@ export class HelloIonicPage {
 
 
 }
-
-
