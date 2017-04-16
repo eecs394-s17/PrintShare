@@ -34,7 +34,6 @@ export class MyApp {
       { title: 'Orders', component: ListPage },
       { title: 'Payment', component: ListPage },
       { title: 'Help', component: ListPage },
-      { title: 'FilePicker', component: FilePicker },
       { title: 'Sign up to Print', component: ListPage }
     ];
   }
