@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { FilePicker } from '../file-picker/file-picker';
+import { Confirmation } from '../confirmation-page/confirmation';
 // import { ModalContentPage } from './modal-content-page';
 import request from 'request';
 
@@ -18,6 +19,7 @@ export class HelloIonicPage {
 
     public isPrintingEnabled: boolean;
     filePicker = FilePicker;
+    confirmation = Confirmation;
 
     constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
       this.isPrintingEnabled = true;

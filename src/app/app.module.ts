@@ -8,6 +8,7 @@ import { OrdersPage } from '../pages/orders/orders';
 import { PaymentPage } from '../pages/payment/payment';
 import { ModalContentPage } from '../pages/hello-ionic/modal-content-page';
 import { FilePicker } from '../pages/file-picker/file-picker';
+import { Confirmation } from '../pages/confirmation-page/confirmation';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -20,7 +21,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     OrdersPage,
     PaymentPage,
     ModalContentPage,
-    FilePicker
+    FilePicker,
+    Confirmation
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -33,7 +35,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     OrdersPage,
     PaymentPage,
     ModalContentPage,
-    FilePicker
+    FilePicker,
+    Confirmation
   ],
   providers: [
     StatusBar,

@@ -7,9 +7,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { FilePicker } from '../pages/file-picker/file-picker';
+
 // import { ListPage } from '../pages/list/list';
 import { OrdersPage } from '../pages/orders/orders';
 import { PaymentPage } from '../pages/payment/payment';
+
+import { Confirmation } from '../pages/confirmation-page/confirmation';
+import { ListPage } from '../pages/list/list';
+
 
 
 @Component({
