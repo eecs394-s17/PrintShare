@@ -3,7 +3,9 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
-import { ListPage } from '../pages/list/list';
+// import { ListPage } from '../pages/list/list';
+import { OrdersPage } from '../pages/orders/orders';
+import { PaymentPage } from '../pages/payment/payment';
 import { ModalContentPage } from '../pages/hello-ionic/modal-content-page';
 import { FilePicker } from '../pages/file-picker/file-picker';
 
@@ -15,7 +17,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     HelloIonicPage,
     ItemDetailsPage,
-    ListPage,
+    OrdersPage,
+    PaymentPage,
     ModalContentPage,
     FilePicker
   ],
@@ -27,7 +30,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     HelloIonicPage,
     ItemDetailsPage,
-    ListPage,
+    OrdersPage,
+    PaymentPage,
     ModalContentPage,
     FilePicker
   ],
