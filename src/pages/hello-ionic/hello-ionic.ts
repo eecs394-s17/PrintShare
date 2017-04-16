@@ -2,7 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { FilePicker } from '../file-picker/file-picker';
 // import { ModalContentPage } from './modal-content-page';
-import 'whatwg-fetch';
+import request from 'request';
 
 
 declare var google;
@@ -125,18 +125,10 @@ export class HelloIonicPage {
     }
 
     getPrinterLocations(that){
-        fetch('https://purple-print-share.herokuapp.com/printers/active',
-            {headers:
-                {'Access-Control-Allow-Origin': "*"}
-            })
-            .then(function(res) {
-                return res.json();
-            })
-            .then(function(json) {
-                console.log(that)
-              that.placePrinters(json,that.map);
-            })
-
+        request('https://purple-print-share.herokuapp.com/printers/active',
+            function(error, response, body) {
+                that.placePrinters(JSON.parse(body), that.map);
+            });
     }
 
     initRequestControls(){
