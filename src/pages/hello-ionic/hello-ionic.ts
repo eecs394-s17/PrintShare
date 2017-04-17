@@ -152,6 +152,9 @@ export class HelloIonicPage {
 
       }
     }
+    onInput(searchVal){
+      console.log(searchVal)
+    }
 
 
 
