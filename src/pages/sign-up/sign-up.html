@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Sign Up</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="form-page">
+    <form>
+        <ion-item>
+            <ion-label>Full Name</ion-label>
+            <ion-input type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Email</ion-label>
+            <ion-input type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Password</ion-label>
+            <ion-input type="password"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Password (Again)</ion-label>
+            <ion-input type="password"></ion-input>
+        </ion-item>
+        <button ion-button type="submit" [navPush]="homePage">Sign Up</button>
+    </form>
+</ion-content>
