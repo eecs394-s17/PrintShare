@@ -3,11 +3,14 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
-import { ListPage } from '../pages/list/list';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { HelpPage } from '../pages/help/help';
+// import { ListPage } from '../pages/list/list';
+import { OrdersPage } from '../pages/orders/orders';
+import { PaymentPage } from '../pages/payment/payment';
 import { ModalContentPage } from '../pages/hello-ionic/modal-content-page';
 import { FilePicker } from '../pages/file-picker/file-picker';
+import { Confirmation } from '../pages/confirmation-page/confirmation';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -17,11 +20,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     HelloIonicPage,
     ItemDetailsPage,
-    ListPage,
+    OrdersPage,
+    PaymentPage,
     ModalContentPage,
     FilePicker,
     SignUpPage,
     HelpPage,
+    Confirmation
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -31,11 +36,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     HelloIonicPage,
     ItemDetailsPage,
-    ListPage,
+    OrdersPage,
+    PaymentPage,
     ModalContentPage,
     FilePicker,
     SignUpPage,
     HelpPage,
+    Confirmation
   ],
   providers: [
     StatusBar,

@@ -7,10 +7,17 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { FilePicker } from '../pages/file-picker/file-picker';
+
+// import { ListPage } from '../pages/list/list';
+import { OrdersPage } from '../pages/orders/orders';
+import { PaymentPage } from '../pages/payment/payment';
+
+import { Confirmation } from '../pages/confirmation-page/confirmation';
 import { ListPage } from '../pages/list/list';
 
 import { HelpPage } from '../pages/help/help';
 import { SignUpPage } from '../pages/sign-up/sign-up';
+
 
 
 @Component({
@@ -34,8 +41,8 @@ export class MyApp {
     // set our app's pages
     this.pages = [
       { title: 'Home', component: HelloIonicPage },
-      { title: 'Orders', component: ListPage },
-      { title: 'Payment', component: ListPage },
+      { title: 'Orders', component: OrdersPage },
+      { title: 'Payment', component: PaymentPage },
       { title: 'Help', component: HelpPage },
       { title: 'Sign up to Print', component: SignUpPage }
     ];
