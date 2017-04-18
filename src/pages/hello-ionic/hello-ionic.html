@@ -110,11 +110,10 @@
             </button>
           </ion-col>
           <ion-col col-8>
-            <button ion-button block color="light" icon-only>
-            <ion-icon name="time"></ion-icon>
+            <button ion-button block color="light" icon-only (click)="picker.open()">
+              <ion-icon name="time"></ion-icon>
               <ion-item>
-                <ion-label>Date</ion-label>
-                <ion-datetime displayFormat="h/mm/a" pickerFormat="h mm A" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55" placeholder="Now" [(ngModel)]="myDate"></ion-datetime>
+                <ion-datetime #picker displayFormat="h:mm a" pickerFormat="h mm A" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55" placeholder="Now" [(ngModel)]="myDate"></ion-datetime>
               </ion-item>
             </button>
           </ion-col>
