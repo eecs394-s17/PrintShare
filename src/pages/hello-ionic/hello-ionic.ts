@@ -9,7 +9,7 @@ import * as moment from 'moment';
 
 declare var google;
 declare var gapi;
-declare var printerLocs;
+// declare var printerLocs;
 
 
 @Component({
@@ -21,10 +21,12 @@ export class HelloIonicPage {
     map: any;
     address: any;
     myDate: any;
+    price: any;
     public isPrintingEnabled: boolean;
     filePicker = FilePicker;
 
     constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
+      this.price = this.calcPrice(true, false);
       this.isPrintingEnabled = true;
       this.myDate = moment().format("h:mma");
     }
@@ -126,7 +128,7 @@ export class HelloIonicPage {
     getPrinterLocations(that){
         request('https://purple-print-share.herokuapp.com/printers/active',
             function(error, response, body) {
-                printerLocs=JSON.parse(body);
+                // printerLocs=JSON.parse(body);
                 that.placePrinters(JSON.parse(body), that.map);
             });
     }
@@ -174,29 +176,30 @@ export class HelloIonicPage {
             time: this.myDate,
         });
     }
+
+    calcPrice(simplex, color){
+      var p = 1.22
+      if(simplex){
+        p = p + .50
+      }
+      if(color){
+        p = p + 1
+      }
+      var dist = .2
+      p = p + 15 * this.getDistance()
+      return p
+    }
+
+    getDistance()
+    {
+      // var min = 0;
+      // for(var i=0; i<printerLocs.length; i++)
+      //   var doc=printerLocs;
+      //   var lat = doc [0]
+      //   var lon = doc[1]
+      //   var xdist = loc[0]- lat;
+      //   var ydist = loc[1]- lon;
+      return .2
+    }
 }
 
-function calcPrice(simplex, color, loc){
-  var price = 1.20
-  if(simplex){
-    price = price + .50
-  }
-  if(color){
-    price = price + 1
-  }
-  var dist = getDistance(loc)
-  price = price + dist * 15
-
-}
-
-function getDistance(loc)
-{
-  var min = 0;
-  for(var i=0; i<printerLocs.length; i++)
-    var doc=printerLocs;
-    var lat = doc [0]
-    var lon = doc[1]
-    var xdist = loc[0]- lat;
-    var ydist = loc[1]- lon;
-  return .2
-}
