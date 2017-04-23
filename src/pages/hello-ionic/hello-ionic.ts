@@ -8,6 +8,8 @@ import request from 'request';
 
 declare var google;
 declare var gapi;
+declare var printerLocs;
+
 
 @Component({
   selector: 'page-hello-ionic',
@@ -130,6 +132,7 @@ export class HelloIonicPage {
     getPrinterLocations(that){
         request('https://purple-print-share.herokuapp.com/printers/active',
             function(error, response, body) {
+                printerLocs=JSON.parse(body);
                 that.placePrinters(JSON.parse(body), that.map);
             });
     }
@@ -164,4 +167,29 @@ export class HelloIonicPage {
             time: this.myDate,
         });
     }
+}
+
+function calcPrice(simplex, color, loc){
+  var price = 1.20
+  if(simplex){
+    price = price + .50
+  }
+  if(color){
+    price = price + 1
+  }
+  var dist = getDistance(loc)
+  price = price + dist * 15
+
+}
+
+function getDistance(loc)
+{
+  var min = 0;
+  for(var i=0; i<printerLocs.length; i++)
+    var doc=printerLocs;
+    var lat = doc [0]
+    var lon = doc[1]
+    var xdist = loc[0]- lat;
+    var ydist = loc[1]- lon;
+  return .2
 }
