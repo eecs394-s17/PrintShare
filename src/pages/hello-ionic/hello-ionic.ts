@@ -36,16 +36,9 @@ export class HelloIonicPage {
       //iconType:
       //   0: user
       //   1: printer
-      // hosting on a public drive account
-      let iconURL = 'http://drive.google.com/'
 
-
-      switch(iconType){
-        case 0:  iconURL += 'uc?export=view&id=0B2ckpSl7qTdFMHFvSkVLUU5lS28';
-                 break;
-        case 1:  iconURL += 'uc?export=view&id=0B2ckpSl7qTdFREprbFJteUJWaUU';
-                 break
-      }
+      let icon = iconType === 1 ? 'tiny-printer.png' : 'location-icon.png';
+      let iconURL = `assets/icon/${icon}`;
 
       let marker = new google.maps.Marker({
         position: location,
