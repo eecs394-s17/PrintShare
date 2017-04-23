@@ -16,10 +16,11 @@ declare var gapi;
 export class HelloIonicPage {
     @ViewChild('map') mapElement: ElementRef;
     map: any;
+    address: any;
+    myDate: any;
 
     public isPrintingEnabled: boolean;
     filePicker = FilePicker;
-    confirmation = Confirmation;
 
     constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
       this.isPrintingEnabled = true;
@@ -144,11 +145,16 @@ export class HelloIonicPage {
 
 
       }
-    }
+      }
+
     onInput(searchVal){
       console.log(searchVal)
     }
 
-
-
+    continue() {
+        this.navCtrl.push(Confirmation, {
+            address: this.address,
+            time: this.myDate,
+        });
+    }
 }
