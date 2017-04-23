@@ -18,13 +18,15 @@ export class HelloIonicPage {
     @ViewChild('map') mapElement: ElementRef;
     map: any;
     address: any;
-    myDate: any;
+    displayDate: any;
+    isoDate: any;
     public isPrintingEnabled: boolean;
     filePicker = FilePicker;
 
     constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
       this.isPrintingEnabled = true;
-      this.myDate = moment().format("h:mma");
+      this.displayDate = moment().format("h:mma");
+      this.isoDate = moment().format(); // needed for setting default time
     }
 
     ionViewDidLoad(){
@@ -153,7 +155,7 @@ export class HelloIonicPage {
     }
 
     changeDate() {
-      var time = this.myDate;
+      var time = this.displayDate;
       time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
 
       if (time.length > 1) { // If time format correct
@@ -161,14 +163,14 @@ export class HelloIonicPage {
         time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
         time[0] = +time[0] % 12 || 12; // Adjust hours
       }
-      this.myDate = time.join ('');
+      this.displayDate = time.join ('');
 
     }
 
     continue() {
         this.navCtrl.push(Confirmation, {
             address: this.address,
-            time: this.myDate,
+            time: this.displayDate,
         });
     }
 }
