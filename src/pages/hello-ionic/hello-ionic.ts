@@ -4,6 +4,7 @@ import { FilePicker } from '../file-picker/file-picker';
 import { Confirmation } from '../confirmation-page/confirmation';
 // import { ModalContentPage } from './modal-content-page';
 import request from 'request';
+import * as moment from 'moment';
 
 
 declare var google;
@@ -17,12 +18,14 @@ export class HelloIonicPage {
     @ViewChild('map') mapElement: ElementRef;
     map: any;
 
+    myDate: any;
     public isPrintingEnabled: boolean;
     filePicker = FilePicker;
     confirmation = Confirmation;
 
     constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
       this.isPrintingEnabled = true;
+      this.myDate = moment().format("h:mma");
     }
 
     ionViewDidLoad(){
@@ -154,6 +157,20 @@ export class HelloIonicPage {
     }
     onInput(searchVal){
       console.log(searchVal)
+    }
+
+    changeDate() {
+      console.log(this.myDate);
+      var time = this.myDate;
+      time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+      if (time.length > 1) { // If time format correct
+        time = time.slice (1);  // Remove full string match value
+        time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+        time[0] = +time[0] % 12 || 12; // Adjust hours
+      }
+      this.myDate = time.join ('');
+
     }
 
 
