@@ -27,6 +27,7 @@
           showCancelButton="shouldShowCancel"
           placeholder="2123 Ridge"
           debounce="900"
+          [(ngModel)]="address"
           (search)="onInput($event)">
         </ion-searchbar>
 
@@ -122,7 +123,7 @@
 
         <ion-row>
           <ion-col col-12>
-            <button [hidden]="!isPrintingEnabled" [navPush]="confirmation" ion-button block color="dark">
+            <button [hidden]="!isPrintingEnabled" (click)="continue()" ion-button block color="dark">
             Continue
             </button>
             <button [hidden]="isPrintingEnabled" ion-button block color="disabled" ng-disabled="true" class="disable-ripple">
