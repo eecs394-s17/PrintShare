@@ -9,6 +9,8 @@ import * as moment from 'moment';
 
 declare var google;
 declare var gapi;
+// declare var printerLocs;
+
 
 @Component({
   selector: 'page-hello-ionic',
@@ -20,10 +22,12 @@ export class HelloIonicPage {
     address: any;
     displayDate: any;
     isoDate: any;
+    price: any;
     public isPrintingEnabled: boolean;
     filePicker = FilePicker;
 
     constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
+      this.price = this.calcPrice(true, false);
       this.isPrintingEnabled = true;
       this.displayDate = moment().format("h:mma");
       this.isoDate = moment().format(); // needed for setting default time
@@ -126,6 +130,7 @@ export class HelloIonicPage {
     getPrinterLocations(that){
         request('https://purple-print-share.herokuapp.com/printers/active',
             function(error, response, body) {
+                // printerLocs=JSON.parse(body);
                 that.placePrinters(JSON.parse(body), that.map);
             });
     }
@@ -173,4 +178,30 @@ export class HelloIonicPage {
             time: this.displayDate,
         });
     }
+
+    calcPrice(simplex, color){
+      var p = 1.22
+      if(simplex){
+        p = p + .50
+      }
+      if(color){
+        p = p + 1
+      }
+      var dist = .2
+      p = p + 15 * this.getDistance()
+      return p
+    }
+
+    getDistance()
+    {
+      // var min = 0;
+      // for(var i=0; i<printerLocs.length; i++)
+      //   var doc=printerLocs;
+      //   var lat = doc [0]
+      //   var lon = doc[1]
+      //   var xdist = loc[0]- lat;
+      //   var ydist = loc[1]- lon;
+      return .2
+    }
 }
+

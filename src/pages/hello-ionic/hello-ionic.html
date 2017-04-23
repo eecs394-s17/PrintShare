@@ -106,11 +106,10 @@
         <ion-row>
           <ion-col col-4>
             <button ion-button [navPush]="filePicker" block color="light" icon-only>
-              <!--<img src="assets/img/monochrome128.png" id="drive-logo">-->
               <ion-icon name="document"></ion-icon>
             </button>
           </ion-col>
-          <ion-col col-8>
+          <ion-col col-4>
             <button ion-button block color="light" icon-only (click)="picker.open()">
               <ion-icon name="time"></ion-icon>
               {{displayDate}}
@@ -120,9 +119,13 @@
               </ion-item>
             </button>
           </ion-col>
+          <ion-col col-4>
+            <button ion-button block color="light" icon-only>
+              <ion-icon name="logo-usd"></ion-icon>
+              {{price}}
+            </button>
+          </ion-col>
         </ion-row>
-
-        <!--minuteValues="0,5,10,15,20,25,30,35,40,45,50,55"--> 
 
         <ion-row>
           <ion-col col-12>
