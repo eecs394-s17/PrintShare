@@ -113,8 +113,9 @@
           <ion-col col-4>
             <button ion-button block color="light" icon-only (click)="picker.open()">
               <ion-icon name="time"></ion-icon>
+              {{myDate}}
               <ion-item>
-                <ion-datetime #picker displayFormat="h:mm a" pickerFormat="h mm A" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55" placeholder="Now" [(ngModel)]="myDate"></ion-datetime>
+                <ion-datetime #picker displayFormat="h:mm a" pickerFormat="h mm A" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55" doneText="Schedule" [(ngModel)]="myDate" (ionChange)="changeDate()"></ion-datetime>
               </ion-item>
             </button>
           </ion-col>

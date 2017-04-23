@@ -4,6 +4,7 @@ import { FilePicker } from '../file-picker/file-picker';
 import { Confirmation } from '../confirmation-page/confirmation';
 // import { ModalContentPage } from './modal-content-page';
 import request from 'request';
+import * as moment from 'moment';
 
 
 declare var google;
@@ -20,12 +21,12 @@ export class HelloIonicPage {
     map: any;
     address: any;
     myDate: any;
-
     public isPrintingEnabled: boolean;
     filePicker = FilePicker;
 
     constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
       this.isPrintingEnabled = true;
+      this.myDate = moment().format("h:mma");
     }
 
     ionViewDidLoad(){
@@ -39,16 +40,9 @@ export class HelloIonicPage {
       //iconType:
       //   0: user
       //   1: printer
-      // hosting on a public drive account
-      let iconURL = 'http://drive.google.com/'
 
-
-      switch(iconType){
-        case 0:  iconURL += 'uc?export=view&id=0B2ckpSl7qTdFMHFvSkVLUU5lS28';
-                 break;
-        case 1:  iconURL += 'uc?export=view&id=0B2ckpSl7qTdFREprbFJteUJWaUU';
-                 break
-      }
+      let icon = iconType === 1 ? 'tiny-printer.png' : 'location-icon.png';
+      let iconURL = `assets/icon/${icon}`;
 
       let marker = new google.maps.Marker({
         position: location,
@@ -159,6 +153,19 @@ export class HelloIonicPage {
 
     onInput(searchVal){
       console.log(searchVal)
+    }
+
+    changeDate() {
+      var time = this.myDate;
+      time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+      if (time.length > 1) { // If time format correct
+        time = time.slice (1);  // Remove full string match value
+        time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+        time[0] = +time[0] % 12 || 12; // Adjust hours
+      }
+      this.myDate = time.join ('');
+
     }
 
     continue() {
