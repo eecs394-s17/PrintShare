@@ -115,7 +115,7 @@
               {{displayDate}}
               <ion-item>
                 <ion-datetime #picker displayFormat="h:mm a" pickerFormat="h mm A" 
-                doneText="Schedule" [(ngModel)]="isoDate" (ionChange)="changeDate()"></ion-datetime>
+                doneText="Schedule" [(ngModel)]="isoDate" (ionChange)="changeDate(isoDate)"></ion-datetime>
               </ion-item>
             </button>
           </ion-col>

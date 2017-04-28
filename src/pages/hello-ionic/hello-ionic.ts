@@ -23,11 +23,15 @@ export class HelloIonicPage {
     displayDate: any;
     isoDate: any;
     price: any;
+    simplex: boolean;
+    color: boolean;
     public isPrintingEnabled: boolean;
     filePicker = FilePicker;
 
     constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
-      this.price = this.calcPrice(true, false);
+      this.simplex = true;
+      this.color = false;
+      this.price = this.calcPrice(this.simplex, this.color);
       this.isPrintingEnabled = true;
       this.displayDate = moment().format("h:mma");
       this.isoDate = moment().format(); // needed for setting default time
@@ -159,8 +163,9 @@ export class HelloIonicPage {
       console.log(searchVal)
     }
 
-    changeDate() {
-      var time = this.displayDate;
+    changeDate(isoDate) {
+      var time = isoDate;
+      time = time.substr(11,5);
       time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
 
       if (time.length > 1) { // If time format correct
@@ -168,7 +173,8 @@ export class HelloIonicPage {
         time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
         time[0] = +time[0] % 12 || 12; // Adjust hours
       }
-      this.displayDate = time.join ('');
+      time = time.join (''); // return adjusted time or original string
+      this.displayDate = time;
 
     }
 

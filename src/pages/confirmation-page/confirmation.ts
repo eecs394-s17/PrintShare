@@ -13,7 +13,7 @@ export class Confirmation {
     public type: any;
     constructor(public platform: Platform, public viewCtrl: ViewController, public navCtrl: NavController, public params: NavParams) {
         
-        this.address =params.get("address");
+        this.address = params.get("address");
         this.time =tConvert(params.get("time"));
         // this.type =params.get("type");
     }
