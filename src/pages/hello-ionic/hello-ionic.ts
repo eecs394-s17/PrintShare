@@ -73,6 +73,7 @@ export class HelloIonicPage {
       var page_class = this
       return navigator.geolocation.getCurrentPosition(function(position) {
         var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+        page_class.address = [position.coords.latitude, position.coords.longitude];
         page_class.map.setCenter(pos);
         let marker = page_class.addMarker(pos, page_class.map,0)
         marker.setMap(page_class.map);
@@ -210,4 +211,3 @@ export class HelloIonicPage {
       return .2
     }
 }
-
