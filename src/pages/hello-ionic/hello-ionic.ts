@@ -20,6 +20,7 @@ export class HelloIonicPage {
     @ViewChild('map') mapElement: ElementRef;
     map: any;
     address: any;
+    addressString:any;
     displayDate: any;
     isoDate: any;
     price: any;
@@ -68,12 +69,24 @@ export class HelloIonicPage {
                               'Error: Your browser doesn\'t support geolocation.');
     }
 
-    geoLocalize(latLng, infoWindow){
+    geoLocalize(latLng, infoWindow, geocoder){
       //avoid directing *this* pointer to navigator.geolocation
       var page_class = this
       return navigator.geolocation.getCurrentPosition(function(position) {
         var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
         page_class.address = [position.coords.latitude, position.coords.longitude];
+        // Geocoding coordinates to get the string version of the street address
+        geocoder.geocode({'location': pos}, function(results, status) {
+          if (status === 'OK') {
+            if (results[1]) {
+              page_class.addressString = results[1].formatted_address;
+            } else {
+              console.log('No results found');
+            }
+          } else {
+            window.alert('Geocoder failed due to: ' + status);
+          }
+        });
         page_class.map.setCenter(pos);
         let marker = page_class.addMarker(pos, page_class.map,0)
         marker.setMap(page_class.map);
@@ -91,6 +104,7 @@ export class HelloIonicPage {
     initMap(){
         let latLng = new google.maps.LatLng(42.052936, -87.679330);
         let infoWindow = new google.maps.InfoWindow({map:this.map})
+        let geocoder = new google.maps.Geocoder;
         let mapOptions = {
             center: latLng,
             zoom: 15,
@@ -108,7 +122,7 @@ export class HelloIonicPage {
 
         if (navigator.geolocation) {
           // geoLocalize will center the map, set the current location marker
-        this.geoLocalize(latLng,infoWindow)
+        this.geoLocalize(latLng,infoWindow,geocoder)
         infoWindow.getPosition()
         }
         this.getPrinterLocations(this)
@@ -181,7 +195,7 @@ export class HelloIonicPage {
 
     continue() {
         this.navCtrl.push(Confirmation, {
-            address: this.address,
+            address: this.addressString,
             time: this.displayDate,
         });
     }
