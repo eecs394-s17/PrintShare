@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HelloIonicPage } from '../hello-ionic/hello-ionic';
 import request from 'request';
 import { Platform, ViewController } from 'ionic-angular';
-import {NavController, NavParams} from 'ionic-angular';
+import {NavController, NavParams, AlertController} from 'ionic-angular';
 import { OrdersPage } from '../orders/orders';
 
 @Component({
@@ -12,7 +12,7 @@ export class Confirmation {
     public address: any;
     public time: any;
     public type: any;
-    constructor(public platform: Platform, public viewCtrl: ViewController, public navCtrl: NavController, public params: NavParams) {
+    constructor(public platform: Platform, public viewCtrl: ViewController, public navCtrl: NavController, public params: NavParams, public alertCtrl: AlertController) {
 
         this.address = params.get("address");
         this.time =tConvert(params.get("time"));
@@ -26,15 +26,30 @@ export class Confirmation {
     }
 
     FinalConfirm(){
-      let today = new Date();
-      let day = today.getDate();
-      let month = today.getMonth();
-      let year = today.getFullYear();
-      var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
-      this.navCtrl.push(OrdersPage, {
-          title: "Location @ "+this.address,
-          note: m_names[month]+" "+day+" "+year,
-      });
+
+        let confirm = this.alertCtrl.create({
+          title: 'Are you sure?',
+          message: 'The document will be sent for printing when you confirm',
+          buttons: [
+            {
+              text: 'Sure!',
+              handler: () => {
+                let today = new Date();
+                let day = today.getDate();
+                let month = today.getMonth();
+                let year = today.getFullYear();
+                var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+
+                this.navCtrl.push(OrdersPage, {
+                    title: "*Docname* @ "+this.address,
+                    note: m_names[month]+" "+day+" "+year,
+                });
+                console.log('Agree clicked');
+              }
+            }
+          ]
+        });
+        confirm.present();
     }
 }
 function tConvert (time) {
