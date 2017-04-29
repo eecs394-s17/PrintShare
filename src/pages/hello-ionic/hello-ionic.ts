@@ -21,6 +21,8 @@ export class HelloIonicPage {
     map: any;
     address: any;
     addressString:any;
+    isSearchMarkerSet: boolean;
+    allMarkers: any;
     displayDate: any;
     isoDate: any;
     price: any;
@@ -49,8 +51,15 @@ export class HelloIonicPage {
       //iconType:
       //   0: user
       //   1: printer
-
-      let icon = iconType === 1 ? 'tiny-printer.png' : 'location-icon.png';
+      var icon;
+      switch(iconType){
+        case 0: icon = 'location-icon.png';
+                break;
+        case 1: icon = 'tiny-printer.png';
+                break;
+        case 2: icon = 'location-icon.png';
+                break;
+      }
       let iconURL = `assets/icon/${icon}`;
 
       let marker = new google.maps.Marker({
@@ -59,7 +68,18 @@ export class HelloIonicPage {
         icon: iconURL,
 
       });
-    return marker;
+      if(iconType == 2){
+        if(this.isSearchMarkerSet){
+          //Remove the existing search marker when you type in a new one
+          this.allMarkers.pop().setMap(null);
+          this.allMarkers.push(marker);
+        }
+        else{
+          this.allMarkers.push(marker);
+          this.isSearchMarkerSet = true
+        }
+      }
+     marker.setMap(this.map);
     }
 
     handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -88,21 +108,22 @@ export class HelloIonicPage {
           }
         });
         page_class.map.setCenter(pos);
-        let marker = page_class.addMarker(pos, page_class.map,0)
-        marker.setMap(page_class.map);
+        page_class.addMarker(pos, page_class.map,0)
         // return true
         // setTimeout(page_class.geoLocalize, 5000);
       },function() {
           page_class.handleLocationError(true, infoWindow, page_class.map.getCenter());
           let pos = new google.maps.LatLng(42.052936, -87.679330);
-          let marker = page_class.addMarker(pos, page_class.map,0)
-          marker.setMap(page_class.map);
+          page_class.addMarker(pos, page_class.map,0)
           // return false
         });
     }
 
     initMap(){
+        this.allMarkers = [];
+        this.isSearchMarkerSet = false;
         let latLng = new google.maps.LatLng(42.052936, -87.679330);
+        this.addressString = "Your Address";
         let infoWindow = new google.maps.InfoWindow({map:this.map})
         let geocoder = new google.maps.Geocoder;
         let mapOptions = {
@@ -141,8 +162,7 @@ export class HelloIonicPage {
           var pLat = printer.location[0];
           var pLng = printer.location[1];
           let pos = new google.maps.LatLng(pLat, pLng);
-          let marker = this.addMarker(pos, this.map, 1)
-          marker.setMap(this.map);
+          this.addMarker(pos, this.map, 1)
         });
     }
 
@@ -174,8 +194,18 @@ export class HelloIonicPage {
       }
       }
 
-    onInput(searchVal){
-      console.log(searchVal)
+    onInput(event, searchVal){
+      console.log("Address searched: "+searchVal);
+      var geocoder = new google.maps.Geocoder();
+      // this.addressString =
+      let page_class = this;
+      geocoder.geocode({'address': searchVal}, function(results, status) {
+        if (status === 'OK') {
+          page_class.addMarker(results[0].geometry.location, this.map, 2);
+        } else {
+          window.alert('Geocode was not successful for the following reason: ' + status);
+        }
+      });
     }
 
     changeDate(isoDate) {

@@ -28,7 +28,7 @@
           placeholder="2123 Ridge"
           debounce="900"
           [(ngModel)]="addressString"
-          (search)="onInput($event)">
+          (search)="onInput($event, addressString)">
         </ion-searchbar>
 
       </ion-col>
