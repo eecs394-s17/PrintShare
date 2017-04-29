@@ -3,6 +3,7 @@ import { HelloIonicPage } from '../hello-ionic/hello-ionic';
 import request from 'request';
 import { Platform, ViewController } from 'ionic-angular';
 import {NavController, NavParams} from 'ionic-angular';
+import { OrdersPage } from '../orders/orders';
 
 @Component({
     templateUrl: 'confirmation.html'
@@ -12,7 +13,7 @@ export class Confirmation {
     public time: any;
     public type: any;
     constructor(public platform: Platform, public viewCtrl: ViewController, public navCtrl: NavController, public params: NavParams) {
-        
+
         this.address = params.get("address");
         this.time =tConvert(params.get("time"));
         // this.type =params.get("type");
@@ -23,7 +24,18 @@ export class Confirmation {
     ionViewDidLoad(){
         // this.fetchDocs(this);
     }
-    
+
+    FinalConfirm(){
+      let today = new Date();
+      let day = today.getDate();
+      let month = today.getMonth();
+      let year = today.getFullYear();
+      var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+      this.navCtrl.push(OrdersPage, {
+          title: "Location @ "+this.address,
+          note: m_names[month]+" "+day+" "+year,
+      });
+    }
 }
 function tConvert (time) {
     // Check correct time format and split into components

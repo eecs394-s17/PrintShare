@@ -11,12 +11,13 @@
     <br />
     <br />
     <br />Document Name: *docname*
+    <br />Document Settings: *simplex* *Black and White*
     <br />Delivery Location: {{address}}
     <br />Delivery Time: {{time}}
     <br />
 
     <ion-col width-60>
-      <button ion-button block color="dark" icon-left>
+      <button ion-button (click)="FinalConfirm()" block color="dark" icon-left>
       Confirm
       </button>
     </ion-col>
