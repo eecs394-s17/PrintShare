@@ -29,7 +29,7 @@ export class Confirmation {
 
         let confirm = this.alertCtrl.create({
           title: 'Are you sure?',
-          message: 'The document will be sent for printing when you confirm',
+          message: 'The document will be sent for printing when you confirm.',
           buttons: [
             {
               text: 'Sure!',
@@ -43,8 +43,13 @@ export class Confirmation {
                 this.navCtrl.push(OrdersPage, {
                     title: "*Docname* @ "+this.address,
                     note: m_names[month]+" "+day+" "+year,
-                });
-                console.log('Agree clicked');
+                }).then(() => {
+                    // first we find the index of the current view controller:
+                    const index = this.viewCtrl.index;
+                    // then we remove it from the navigation stack
+                    this.navCtrl.remove(index);
+                  });
+                console.log('User clicked sure yo');
               }
             }
           ]

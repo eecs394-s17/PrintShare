@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, ViewController } from 'ionic-angular';
 import { FilePicker } from '../file-picker/file-picker';
 import { Confirmation } from '../confirmation-page/confirmation';
 // import { ModalContentPage } from './modal-content-page';
@@ -31,7 +31,7 @@ export class HelloIonicPage {
     public isPrintingEnabled: boolean;
     filePicker = FilePicker;
 
-    constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
+    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public viewCtrl: ViewController) {
       this.simplex = true;
       this.color = false;
       this.price = this.calcPrice(this.simplex, this.color);
