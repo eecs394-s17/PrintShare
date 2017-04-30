@@ -44,7 +44,6 @@ export class MyApp {
       { title: 'Orders', component: OrdersPage },
       { title: 'Payment', component: PaymentPage },
       { title: 'Help', component: HelpPage },
-      { title: 'Sign up to Print', component: SignUpPage }
     ];
   }
 
