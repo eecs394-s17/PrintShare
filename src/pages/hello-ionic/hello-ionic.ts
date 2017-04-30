@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, ModalController, ViewController } from 'ionic-angular';
+import { NavController, ModalController, ViewController, NavParams } from 'ionic-angular';
 import { FilePicker } from '../file-picker/file-picker';
 import { Confirmation } from '../confirmation-page/confirmation';
 // import { ModalContentPage } from './modal-content-page';
@@ -26,18 +26,22 @@ export class HelloIonicPage {
     displayDate: any;
     isoDate: any;
     price: any;
-    simplex: boolean;
-    color: boolean;
+    isDuplex: string;
+    isColor: string;
     public isPrintingEnabled: boolean;
     filePicker = FilePicker;
 
-    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public viewCtrl: ViewController) {
-      this.simplex = true;
-      this.color = false;
-      this.price = this.calcPrice(this.simplex, this.color);
+    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public viewCtrl: ViewController, public params: NavParams) {
+      this.isDuplex = "bleh";
+      this.isColor = "blah";
+      this.price = this.calcPrice(this.isDuplex, this.isColor);
       this.isPrintingEnabled = true;
       this.displayDate = moment().format("h:mma");
       this.isoDate = moment().format(); // needed for setting default time
+      this.isDuplex = params.get("isDuplex");
+      this.isColor = params.get("isColor");
+      console.log(this.isDuplex);
+      console.log(this.isColor);
     }
 
     ionViewDidLoad(){
