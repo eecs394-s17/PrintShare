@@ -27,75 +27,10 @@
           showCancelButton="shouldShowCancel"
           placeholder="2123 Ridge"
           debounce="900"
-          [(ngModel)]="address"
-          (search)="onInput($event)">
+          [(ngModel)]="addressString"
+          (search)="onInput($event, addressString)">
         </ion-searchbar>
 
-            <script>
-
-          function initAutocomplete() {
-
-            // Create the search box and link it to the UI element.
-            var input = document.getElementById('pac-input');
-            var searchBox = new google.maps.places.SearchBox(input);
-            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-            // Bias the SearchBox results towards current map's viewport.
-            map.addListener('bounds_changed', function() {
-              searchBox.setBounds(map.getBounds());
-            });
-
-            var markers = [];
-            // Listen for the event fired when the user selects a prediction and retrieve
-            // more details for that place.
-            searchBox.addListener('places_changed', function() {
-              var places = searchBox.getPlaces();
-
-              if (places.length == 0) {
-                return;
-              }
-
-              // Clear out the old markers.
-              markers.forEach(function(marker) {
-                marker.setMap(null);
-              });
-              markers = [];
-
-              // For each place, get the icon, name and location.
-              var bounds = new google.maps.LatLngBounds();
-              places.forEach(function(place) {
-                if (!place.geometry) {
-                  console.log("Returned place contains no geometry");
-                  return;
-                }
-                var icon = {
-                  url: place.icon,
-                  size: new google.maps.Size(71, 71),
-                  origin: new google.maps.Point(0, 0),
-                  anchor: new google.maps.Point(17, 34),
-                  scaledSize: new google.maps.Size(25, 25)
-                };
-
-                // Create a marker for each place.
-                markers.push(new google.maps.Marker({
-                  map: map,
-                  icon: icon,
-                  title: place.name,
-                  position: place.geometry.location
-                }));
-
-                if (place.geometry.viewport) {
-                  // Only geocodes have viewport.
-                  bounds.union(place.geometry.viewport);
-                } else {
-                  bounds.extend(place.geometry.location);
-                }
-              });
-              map.fitBounds(bounds);
-            });
-          }
-
-        </script>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -106,16 +41,23 @@
         <ion-row>
           <ion-col col-4>
             <button ion-button [navPush]="filePicker" block color="light" icon-only>
-              <!--<img src="assets/img/monochrome128.png" id="drive-logo">-->
               <ion-icon name="document"></ion-icon>
             </button>
           </ion-col>
-          <ion-col col-8>
+          <ion-col col-4>
             <button ion-button block color="light" icon-only (click)="picker.open()">
               <ion-icon name="time"></ion-icon>
+              {{displayDate}}
               <ion-item>
-                <ion-datetime #picker displayFormat="h:mm a" pickerFormat="h mm A" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55" placeholder="Now" [(ngModel)]="myDate"></ion-datetime>
+                <ion-datetime #picker displayFormat="h:mm a" pickerFormat="h mm A"
+                doneText="Schedule" [(ngModel)]="isoDate" (ionChange)="changeDate(isoDate)"></ion-datetime>
               </ion-item>
+            </button>
+          </ion-col>
+          <ion-col col-4>
+            <button ion-button block color="light" icon-only>
+              <ion-icon name="logo-usd"></ion-icon>
+              {{price}}
             </button>
           </ion-col>
         </ion-row>

@@ -7,15 +7,17 @@
 <ion-content>
   <div style="text-align:center;">
     <!-- Image from the public drive folder-->
-    <br /><img src="https://drive.google.com/uc?export=view&id=0B2ckpSl7qTdFa0lqQjd1dnMtQlE" style= "max-width:200px;max-height:200px;">
+    <br /><img src="assets/img/printer.png" style= "max-width:200px;max-height:200px;">
     <br />
     <br />
-    <br />{{address}}
-    <br />{{time}}
+    <br />Document Name: *docname*
+    <br />Document Settings: *simplex* *Black and White*
+    <br />Delivery Location: {{address}}
+    <br />Delivery Time: {{time}}
     <br />
 
     <ion-col width-60>
-      <button ion-button block color="dark" icon-left>
+      <button ion-button (click)="FinalConfirm()" block color="dark" icon-left>
       Confirm
       </button>
     </ion-col>
