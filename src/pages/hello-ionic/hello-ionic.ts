@@ -40,14 +40,11 @@ export class HelloIonicPage {
       this.isoDate = moment().format(); // needed for setting default time
       this.isDuplex = params.get("isDuplex");
       this.isColor = params.get("isColor");
-      console.log(this.isDuplex);
-      console.log(this.isColor);
 
       events.subscribe('doctype:changed', (isDuplex, isColor) => {
         this.isDuplex = isDuplex;
         this.isColor = isColor;
-        console.log(this.isDuplex);
-        console.log(this.isColor);
+        this.price = this.calcPrice(this.isDuplex, this.isColor);
       });
     }
 
@@ -243,10 +240,10 @@ export class HelloIonicPage {
 
     calcPrice(simplex, color){
       var p = 1.22
-      if(simplex){
+      if(simplex == "Simplex"){
         p = p + .50
       }
-      if(color){
+      if(color == "Color"){
         p = p + 1
       }
       var dist = .2
