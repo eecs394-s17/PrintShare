@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { HelloIonicPage } from '../hello-ionic/hello-ionic';
-import {NavController, NavParams, AlertController, ViewController} from 'ionic-angular';
+import {NavController, NavParams, AlertController, ViewController, Events} from 'ionic-angular';
 import request from 'request';
 
 @Component({
     templateUrl: 'file-picker.html'
 })
 export class FilePicker {
-    constructor(public navCtrl: NavController, public params: NavParams, public alertCtrl: AlertController, public viewCtrl: ViewController) {
+    constructor(public navCtrl: NavController, public params: NavParams, public alertCtrl: AlertController, public viewCtrl: ViewController, public events: Events) {
         this.isColor = params.get("isColor");
         this.isDuplex = params.get("isDuplex");
     }
@@ -30,15 +30,7 @@ export class FilePicker {
     }
 
     selectFile(){
-        this.navCtrl.push(HelloIonicPage, {
-            isColor: this.isColor,
-            isDuplex: this.isDuplex,
-        }).then(() => {
-        // first we find the index of the current view controller:
-        const index = this.viewCtrl.index;
-        // then we remove it from the navigation stack
-        this.navCtrl.remove(index);
-        this.navCtrl.remove(index);
-      });
-    }
+        this.events.publish('doctype:changed', this.isDuplex, this.isColor);
+        this.navCtrl.pop();
+      }
 }

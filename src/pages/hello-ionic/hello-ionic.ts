@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, ModalController, ViewController, NavParams } from 'ionic-angular';
+import { NavController, ModalController, ViewController, NavParams, Events } from 'ionic-angular';
 import { FilePicker } from '../file-picker/file-picker';
 import { Confirmation } from '../confirmation-page/confirmation';
 // import { ModalContentPage } from './modal-content-page';
@@ -31,7 +31,7 @@ export class HelloIonicPage {
     public isPrintingEnabled: boolean;
     filePicker = FilePicker;
 
-    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public viewCtrl: ViewController, public params: NavParams) {
+    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public viewCtrl: ViewController, public params: NavParams, public events: Events) {
       this.isDuplex = "bleh";
       this.isColor = "blah";
       this.price = this.calcPrice(this.isDuplex, this.isColor);
@@ -42,6 +42,13 @@ export class HelloIonicPage {
       this.isColor = params.get("isColor");
       console.log(this.isDuplex);
       console.log(this.isColor);
+
+      events.subscribe('doctype:changed', (isDuplex, isColor) => {
+        this.isDuplex = isDuplex;
+        this.isColor = isColor;
+        console.log(this.isDuplex);
+        console.log(this.isColor);
+      });
     }
 
     ionViewDidLoad(){
