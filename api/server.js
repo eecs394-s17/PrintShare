@@ -45,6 +45,20 @@ server.route({
   }
 });
 
+server.post({
+  method: 'GET',
+  path: '/docs/{id}/print',
+  handler: function(request, reply) {
+    const data = request.payload;
+    docs.map(function(doc) {
+      if (doc.id === request.params.id) {
+        doc.printed = true;
+      }
+    });
+    reply(docs);
+  }
+});
+
 server.start(function(error) {
   if (error) throw error;
   console.log('API server is running at: ', server.info.uri);
