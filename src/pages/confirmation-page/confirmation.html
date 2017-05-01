@@ -16,16 +16,23 @@
     <br />Delivery Time: {{time}}
     <br />
 
-    <ion-col width-60>
-      <button ion-button (click)="FinalConfirm()" block color="dark" icon-left>
-      Confirm
-      </button>
-    </ion-col>
-    <ion-col width-60>
-      <button ion-button (click)="dismiss()" block color="light" icon-left>
-      Cancel
-      </button>
-    </ion-col>
+    <ion-footer>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button (click)="FinalConfirm()" block color="dark" icon-left>
+            Confirm
+            </button>
+          </ion-col>
+          <ion-col col-6>
+            <button ion-button (click)="dismiss()" block color="light" icon-left>
+            Cancel
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-footer>
+
   </div>
 
 
