@@ -45,7 +45,7 @@ server.route({
   }
 });
 
-server.post({
+server.route({
   method: 'GET',
   path: '/docs/{id}/print',
   handler: function(request, reply) {

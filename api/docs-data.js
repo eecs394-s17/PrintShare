@@ -14,7 +14,7 @@ const data = [
     "create_date": "Wed Sep 24 2016 09:00:00 GMT-0500 (CDT)",
     "last_updated": "Wed Sep 24 2016 12:00:00 GMT-0500 (CDT)",
     "author_name": "Me",
-    "size": "790 KB"
+    "size": "790 KB",
     "printed": false
   },
   {
@@ -23,7 +23,7 @@ const data = [
     "create_date": "Tue Mar 24 2015 01:00:00 GMT-0500 (CDT)",
     "last_updated": "Sun Mar 24 2015 03:00:00 GMT-0500 (CDT)",
     "author_name": "Me",
-    "size": "498 KB"
+    "size": "498 KB",
     "printed": false
   },
   {
