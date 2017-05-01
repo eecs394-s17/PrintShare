@@ -6,15 +6,33 @@
 
 <ion-content>
   <div style="text-align:center;">
-    <!-- Image from the public drive folder-->
-    <br /><img src="assets/img/printer.png" style= "max-width:200px;max-height:200px;">
-    <br />
-    <br />
-    <br />Document Name: *docname*
-    <br />Document Settings: *simplex* *Black and White*
-    <br />Delivery Location: {{address}}
-    <br />Delivery Time: {{time}}
-    <br />
+    <img src="assets/img/printer.png" style= "max-width:200px;max-height:200px; margin: 20px 0;">
+
+    <ion-list>
+      <ion-item>
+        <ion-icon name="document" item-left></ion-icon>
+        <div hideWhen="portrait">Document Name:</div>
+        <span item-right>*docname*</span>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="settings" item-left></ion-icon>
+        <div hideWhen="portrait">Document Settings:</div>
+        <span item-right>*Simplex* *Black and White*</span>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="pin" item-left></ion-icon>
+        <div hideWhen="portrait">Delivery Address:</div>
+        <span item-right>{{address}}</span>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="time" item-left></ion-icon>
+        <div hideWhen="portrait">Delivery Time:</div>
+        <span item-right>{{time}}</span>
+      </ion-item>
+    </ion-list>
 
     <ion-footer>
       <ion-grid>
