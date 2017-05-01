@@ -28,6 +28,7 @@ export class HelloIonicPage {
     price: any;
     isDuplex: string;
     isColor: string;
+    fileName: string;
     public isPrintingEnabled: boolean;
     filePicker = FilePicker;
 
@@ -41,10 +42,11 @@ export class HelloIonicPage {
       this.isDuplex = params.get("isDuplex");
       this.isColor = params.get("isColor");
 
-      events.subscribe('doctype:changed', (isDuplex, isColor) => {
+      events.subscribe('doctype:changed', (isDuplex, isColor, fileName) => {
         this.isPrintingEnabled = true;
         this.isDuplex = isDuplex;
         this.isColor = isColor;
+        this.fileName = fileName;
         this.price = this.calcPrice(this.isDuplex, this.isColor);
       });
     }
@@ -239,6 +241,9 @@ export class HelloIonicPage {
         this.navCtrl.push(Confirmation, {
             address: this.addressString,
             time: this.displayDate,
+            isDuplex: this.isDuplex,
+            isColor: this.isColor,
+            fileName: this.fileName
         });
     }
 

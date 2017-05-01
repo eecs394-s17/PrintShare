@@ -31,12 +31,12 @@ export class FilePicker {
         });
     }
 
-    selectFile() {
+    selectFile(filename) {
         request('https://purple-print-share.herokuapp.com/docs/' + this.filename + '/print',
         function(error, response, body) {
             if (error) console.log(error);
         });
-        this.events.publish('doctype:changed', this.isDuplex, this.isColor);
+        this.events.publish('doctype:changed', this.isDuplex, this.isColor, filename);
         this.navCtrl.pop();
       }
 }

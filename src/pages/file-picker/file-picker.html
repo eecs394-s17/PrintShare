@@ -29,7 +29,7 @@
     <ion-list>
         <div *ngFor="let item of items"> 
             <button name="filename" [(ngModel)]="filename" ion-item ngDefaultControl
-                    (click)="selectFile()">
+                    (click)="selectFile(item.filename)">
                 {{item.filename}}
             </button>
         </div>

@@ -11,12 +11,15 @@ import { OrdersPage } from '../orders/orders';
 export class Confirmation {
     public address: any;
     public time: any;
-    public type: any;
+    public docSettings: any;
+    public fileName : string;
     constructor(public platform: Platform, public viewCtrl: ViewController, public navCtrl: NavController, public params: NavParams, public alertCtrl: AlertController) {
 
         this.address = params.get("address");
         this.time =tConvert(params.get("time"));
-        // this.type =params.get("type");
+        this.docSettings = params.get("isDuplex") ? 'Duplex' : 'Simplex';
+        this.docSettings = params.get("isColor") ? `${this.docSettings} Color` : `${this.docSettings} Black & White`;
+        this.fileName = params.get("fileName");
     }
     dismiss() {
         this.viewCtrl.dismiss();
