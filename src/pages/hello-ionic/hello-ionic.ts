@@ -35,13 +35,14 @@ export class HelloIonicPage {
       this.isDuplex = "bleh";
       this.isColor = "blah";
       this.price = this.calcPrice(this.isDuplex, this.isColor);
-      this.isPrintingEnabled = true;
+      this.isPrintingEnabled = false;
       this.displayDate = moment().format("h:mma");
       this.isoDate = moment().format(); // needed for setting default time
       this.isDuplex = params.get("isDuplex");
       this.isColor = params.get("isColor");
 
       events.subscribe('doctype:changed', (isDuplex, isColor) => {
+        this.isPrintingEnabled = true;
         this.isDuplex = isDuplex;
         this.isColor = isColor;
         this.price = this.calcPrice(this.isDuplex, this.isColor);
@@ -65,7 +66,7 @@ export class HelloIonicPage {
                 break;
         case 1: icon = 'tiny-printer.png';
                 break;
-        case 2: icon = 'location-icon.png';
+        case 2: icon = 'tiny-printer-bw.png';
                 break;
       }
       let iconURL = `assets/icon/${icon}`;
@@ -170,7 +171,10 @@ export class HelloIonicPage {
           var pLat = printer.location[0];
           var pLng = printer.location[1];
           let pos = new google.maps.LatLng(pLat, pLng);
-          this.addMarker(pos, this.map, 1)
+          var type = 2
+          if(printer.color == true)
+            type = 1
+          this.addMarker(pos, this.map, type)
         });
     }
 
