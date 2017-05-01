@@ -27,9 +27,11 @@
 	</div>
 
     <ion-list>
-        <button ion-item *ngFor="let item of items" (click)="selectFile()">
-            <h1>{{item.filename}}</h1>
-            <h2>{{item.author_name}} - {{item.last_updated}} </h2>
-        </button>
+        <div *ngFor="let item of items"> 
+            <button name="filename" [(ngModel)]="filename" ion-item ngDefaultControl
+                    (click)="selectFile()">
+                {{item.filename}}
+            </button>
+        </div>
     </ion-list>
 </ion-content>

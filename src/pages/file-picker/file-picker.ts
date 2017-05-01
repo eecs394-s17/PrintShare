@@ -10,12 +10,14 @@ export class FilePicker {
     constructor(public navCtrl: NavController, public params: NavParams, public alertCtrl: AlertController, public viewCtrl: ViewController, public events: Events) {
         this.isColor = params.get("isColor");
         this.isDuplex = params.get("isDuplex");
+        this.filename = params.get("filename");
     }
 
     homePage = HelloIonicPage;
     items =[];
     isColor: string;
     isDuplex: string;
+    filename: string;
 
     ionViewDidLoad(){
         this.fetchDocs(this);
@@ -29,7 +31,11 @@ export class FilePicker {
         });
     }
 
-    selectFile(){
+    selectFile() {
+        request('https://purple-print-share.herokuapp.com/docs/' + this.filename + '/print',
+        function(error, response, body) {
+            if (error) console.log(error);
+        });
         this.events.publish('doctype:changed', this.isDuplex, this.isColor);
         this.navCtrl.pop();
       }
