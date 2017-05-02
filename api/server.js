@@ -47,11 +47,11 @@ server.route({
 
 server.route({
   method: 'GET',
-  path: '/docs/{id}/print',
+  path: '/docs/{name}/print',
   handler: function(request, reply) {
     const data = request.payload;
     docs.map(function(doc) {
-      if (doc.id === request.params.id) {
+      if (doc.filename === request.params.name) {
         doc.printed = true;
       }
     });
