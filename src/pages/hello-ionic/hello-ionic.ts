@@ -68,7 +68,7 @@ export class HelloIonicPage {
                 break;
         case 1: icon = 'tiny-printer.png';
                 break;
-        case 2: icon = 'tiny-printer-bw.png';
+        case 2: icon = 'destination-icon.png';
                 break;
       }
       let iconURL = `assets/icon/${icon}`;
