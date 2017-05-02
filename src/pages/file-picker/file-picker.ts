@@ -32,7 +32,7 @@ export class FilePicker {
     }
 
     selectFile(filename) {
-        request('https://purple-print-share.herokuapp.com/docs/' + this.filename + '/print',
+        request('https://purple-print-share.herokuapp.com/docs/' + filename + '/print',
         function(error, response, body) {
             if (error) console.log(error);
         });
