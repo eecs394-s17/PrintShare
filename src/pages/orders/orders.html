@@ -9,10 +9,10 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let item of items">
-      <div class="item-note" item-right>
-        {{item.filename}}
-      </div>
-    </button>
+    <div *ngFor="let item of items">
+        <button ion-item ngDefaultControl>
+            {{item.filename}}
+        </button>
+    </div>
   </ion-list>
 </ion-content>
